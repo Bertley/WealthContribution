@@ -13,3 +13,11 @@ export const contributionEdit = () => ({
 export const contributionEditDismiss = () => ({
   type: Actions.CONTRIBUTION_EDIT_DISMISS,
 });
+
+export const contributionCancel = () => ({
+  type: Actions.CONTRIBUTION_CANCEL,
+});
+
+export const contributionCancelDismiss = () => ({
+  type: Actions.CONTRIBUTION_CANCEL_DISMISS,
+});

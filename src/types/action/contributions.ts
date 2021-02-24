@@ -12,3 +12,11 @@ export interface ContributionEdit {
 export interface ContributionEditDismiss {
   type: Actions.CONTRIBUTION_EDIT_DISMISS;
 }
+
+export interface ContributionCancel {
+  type: Actions.CONTRIBUTION_CANCEL;
+}
+
+export interface ContributionCancelDismiss {
+  type: Actions.CONTRIBUTION_CANCEL_DISMISS;
+}

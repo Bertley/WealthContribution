@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsSelectedDisabled } from '../../selectors/contributions';
-import { contributionEdit } from '../../actions/contribution';
+import { contributionEdit, contributionCancel } from '../../actions/contribution';
 
 const ContributionActions = () => {
     const disabled = useSelector(getIsSelectedDisabled);
@@ -12,7 +12,7 @@ const ContributionActions = () => {
     return (
         <CardActions>
             <Button disabled={disabled} onClick={() => dispatch(contributionEdit())}>Edit</Button>
-            <Button disabled={disabled}>Cancel</Button>
+            <Button disabled={disabled} onClick={() => dispatch(contributionCancel())} >Cancel</Button>
         </CardActions>
     )
 }
