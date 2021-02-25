@@ -33,16 +33,18 @@ const ContributionEdit = () => {
 
   const onSubmit = (values: ContributionFormData) => {
     async function updateContribution() {
-      const { uuid } = values
-      const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
-      };
-      const response = await fetch('/contributions/' + uuid, requestOptions);
-      const contribution = await response.json();
-      const updatedValues: ContributionFormData = contribution
-      dispatch({ type: Actions.CONTRIBUTION_UPDATE, payload: updatedValues })
+      // const { uuid } = values
+      // if (contribution === null) return
+      // const requestOptions = {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(values)
+      // };
+      // const response = await fetch('/contributions/' + uuid, requestOptions);
+      // const contribution = await response.json();
+      // const updatedValues: ContributionFormData = contribution
+      // Change `values` to `updatedValue`
+      dispatch({ type: Actions.CONTRIBUTION_UPDATE, payload: values })
       dismiss()
     }
     updateContribution();

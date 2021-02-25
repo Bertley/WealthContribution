@@ -32,11 +32,12 @@ const ContributionCancel = () => {
     async function deleteContribution() {
       if (contribution === null) return
       const { uuid } = contribution
-      const response = await fetch('/contributions/' + uuid, {
-        method: 'DELETE',
-      })
-      const deleted = await response.json()
-      console.log(deleted)
+      // Uncomment use the api
+      // const response = await fetch('/contributions/' + uuid, {
+      //   method: 'DELETE',
+      // })
+      // const deleted = await response.json()
+      // console.log(deleted)
       dispatch({ type: Actions.CONTRIBUTION_DELETE, payload: uuid })
       dismiss()
     }
