@@ -9,7 +9,7 @@ import { contributionCancelDismiss } from '../../actions/contribution';
 import { isVisible } from '../../selectors/dialogs';
 import { Dialogs } from '../../types/dialog';
 import { State } from '../../types/store';
-import classes from './ContributionCancel.module.scss';
+// import classes from './ContributionCancel.module.scss';
 
 const ContributionCancel = () => {
   const visible = useSelector<State, boolean>(state => isVisible(state, Dialogs.contributionCancel));

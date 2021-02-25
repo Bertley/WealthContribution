@@ -21,3 +21,8 @@ export const contributionCancel = () => ({
 export const contributionCancelDismiss = () => ({
   type: Actions.CONTRIBUTION_CANCEL_DISMISS,
 });
+
+export const contributionUpdate = (payload: Contribution) => ({
+  payload, 
+  type: Actions.CONTRIBUTION_UPDATE
+})

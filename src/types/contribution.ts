@@ -13,12 +13,18 @@ export interface Contribution {
   date: Date;
 }
 
+export interface ContributionFormData {
+  uuid: string;
+  tfsa: number;
+  rrsp: number;
+}
+
 export interface WithContribution {
   contribution: Contribution;
 }
 
 export interface Contributions {
-  [uuid:string]: Contribution;
+  [uuid: string]: Contribution;
 }
 
 export interface WithContributions {

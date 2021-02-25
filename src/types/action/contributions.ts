@@ -1,5 +1,5 @@
 import { Actions } from '../action';
-import { WithContribution } from '../contribution';
+import { WithContribution, ContributionFormData } from '../contribution';
 
 export interface ContributionSelect extends WithContribution {
   type: Actions.CONTRIBUTION_SELECT;
@@ -19,4 +19,9 @@ export interface ContributionCancel {
 
 export interface ContributionCancelDismiss {
   type: Actions.CONTRIBUTION_CANCEL_DISMISS;
+}
+
+export interface ContributionUpdate {
+  payload: ContributionFormData
+  type: Actions.CONTRIBUTION_UPDATE;
 }

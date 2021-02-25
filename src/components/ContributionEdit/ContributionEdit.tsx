@@ -9,21 +9,36 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { contributionEditDismiss } from '../../actions/contribution';
 import { isVisible } from '../../selectors/dialogs';
+import { getSelected } from '../../selectors/contributions';
 import { Dialogs } from '../../types/dialog';
 import { State } from '../../types/store';
 import Tfsa from '../Tfsa/Tfsa';
 import Rrsp from '../Rrsp/Rrsp';
 import classes from './ContributionEdit.module.scss';
+import { Actions } from '../../types/action';
+import { ContributionFormData } from '../../types/contribution';
 
 const ContributionEdit = () => {
   const visible = useSelector<State, boolean>(state => isVisible(state, Dialogs.contributionEdit));
   const dispatch = useDispatch();
   const dismiss = () => dispatch(contributionEditDismiss());
+  const contribution = useSelector(getSelected)
+  if (!contribution) return null
+
+  const { uuid, tfsa, rrsp } = contribution
+
+  const onSubmit = (values: ContributionFormData) => {
+    dispatch({ type: Actions.CONTRIBUTION_UPDATE, payload: values })
+    dismiss()
+  }
 
   return (
     <Dialog open={!!visible} onClose={dismiss}>
       <DialogTitle>Edit Contribution</DialogTitle>
-      <Formik initialValues={{}} onSubmit={() => undefined}>
+      <Formik
+        initialValues={{ uuid, tfsa, rrsp }}
+        onSubmit={onSubmit}
+      >
         {() => (
           <Form>
             <DialogContent classes={{ root: classes.content }}>
@@ -32,7 +47,8 @@ const ContributionEdit = () => {
             </DialogContent>
             <DialogActions>
               <Button onClick={dismiss}>Cancel</Button>
-              <Button onClick={dismiss}>Accept</Button>
+              {/* <Button onClick={dismiss}>Accept</Button> */}
+              <Button type="submit">Accept</Button>
             </DialogActions>
           </Form>
         )}
