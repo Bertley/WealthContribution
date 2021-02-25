@@ -7,3 +7,4 @@
 5. Write jest tests for all my utility functions 
 6. Seperate my components into containers and representational components 
 7. Write jest tests my representational components 
+8. Mock the Api
