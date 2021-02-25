@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Formik, Form } from 'formik';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { contributionEditDismiss } from '../../actions/contribution';
@@ -22,21 +22,40 @@ const ContributionEdit = () => {
   const visible = useSelector<State, boolean>(state => isVisible(state, Dialogs.contributionEdit));
   const dispatch = useDispatch();
   const dismiss = () => dispatch(contributionEditDismiss());
-  const contribution = useSelector(getSelected)
-  if (!contribution) return null
+  const contributionData = useSelector(getSelected)
+  const contribution = useMemo(() => {
+    if (!contributionData) {
+      return null
+    }
+    return contributionData
+  }, [contributionData])
 
-  const { uuid, tfsa, rrsp } = contribution
 
   const onSubmit = (values: ContributionFormData) => {
-    dispatch({ type: Actions.CONTRIBUTION_UPDATE, payload: values })
-    dismiss()
+    async function updateContribution() {
+      const { uuid } = values
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      };
+      const response = await fetch('/contributions/' + uuid, requestOptions);
+      const contribution = await response.json();
+      const updatedValues: ContributionFormData = contribution
+      dispatch({ type: Actions.CONTRIBUTION_UPDATE, payload: updatedValues })
+      dismiss()
+    }
+    updateContribution();
   }
+
+  if (!contribution) return null
+  const initialValues: ContributionFormData = contribution
 
   return (
     <Dialog open={!!visible} onClose={dismiss}>
       <DialogTitle>Edit Contribution</DialogTitle>
       <Formik
-        initialValues={{ uuid, tfsa, rrsp }}
+        initialValues={initialValues}
         onSubmit={onSubmit}
       >
         {() => (
@@ -47,7 +66,6 @@ const ContributionEdit = () => {
             </DialogContent>
             <DialogActions>
               <Button onClick={dismiss}>Cancel</Button>
-              {/* <Button onClick={dismiss}>Accept</Button> */}
               <Button type="submit">Accept</Button>
             </DialogActions>
           </Form>
