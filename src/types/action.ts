@@ -4,7 +4,8 @@ import {
   ContributionEditDismiss, 
   ContributionCancel, 
   ContributionCancelDismiss, 
-  ContributionUpdate
+  ContributionUpdate,
+  ContributionDelete,
 } from './action/contributions';
 
 export enum Actions {
@@ -13,7 +14,8 @@ export enum Actions {
   CONTRIBUTION_SELECT = 'CONTRIBUTION_SELECT',
   CONTRIBUTION_CANCEL = 'CONTRIBUTION_CANCEL',
   CONTRIBUTION_CANCEL_DISMISS = 'CONTRIBUTION_CANCEL_DISMISS',
-  CONTRIBUTION_UPDATE = 'CONTRIBUTION_UPDATE'
+  CONTRIBUTION_UPDATE = 'CONTRIBUTION_UPDATE', 
+  CONTRIBUTION_DELETE= 'CONTRIBUTION_DELETE'
 }
 
 
@@ -23,4 +25,5 @@ export type Action = ContributionEdit
   | ContributionCancel
   | ContributionCancelDismiss
   | ContributionUpdate
+  | ContributionDelete
   ;

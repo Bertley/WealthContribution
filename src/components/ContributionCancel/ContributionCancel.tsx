@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,12 +9,40 @@ import { contributionCancelDismiss } from '../../actions/contribution';
 import { isVisible } from '../../selectors/dialogs';
 import { Dialogs } from '../../types/dialog';
 import { State } from '../../types/store';
+import { getSelected } from '../../selectors/contributions';
+import { Actions } from '../../types/action';
 // import classes from './ContributionCancel.module.scss';
 
 const ContributionCancel = () => {
   const visible = useSelector<State, boolean>(state => isVisible(state, Dialogs.contributionCancel));
   const dispatch = useDispatch();
   const dismiss = () => dispatch(contributionCancelDismiss());
+  const contributionData = useSelector(getSelected)
+  const contribution = useMemo(() => {
+    if (contributionData === null) {
+      return null
+    }
+    return contributionData
+  }, [contributionData])
+
+  if (contribution === null) return null
+
+  const deleteContribution = () => {
+
+    async function deleteContribution() {
+      if (contribution === null) return
+      const { uuid } = contribution
+      const response = await fetch('/contributions/' + uuid, {
+        method: 'DELETE',
+      })
+      const deleted = await response.json()
+      console.log(deleted)
+      dispatch({ type: Actions.CONTRIBUTION_DELETE, payload: uuid })
+      dismiss()
+    }
+
+    deleteContribution();
+  }
 
   return (
     <Dialog open={!!visible} onClose={dismiss}
@@ -26,7 +54,7 @@ const ContributionCancel = () => {
         <Button onClick={dismiss} color="primary">
           Disagree
       </Button>
-        <Button onClick={dismiss} color="primary" autoFocus>
+        <Button onClick={deleteContribution} color="primary" autoFocus>
           Agree
       </Button>
       </DialogActions>

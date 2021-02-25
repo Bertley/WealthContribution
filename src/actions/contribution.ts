@@ -26,3 +26,8 @@ export const contributionUpdate = (payload: Contribution) => ({
   payload, 
   type: Actions.CONTRIBUTION_UPDATE
 })
+
+export const contributionDelete = (payload: string) => ({
+  payload, 
+  type: Actions.CONTRIBUTION_DELETE
+})

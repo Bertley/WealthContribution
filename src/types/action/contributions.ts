@@ -25,3 +25,8 @@ export interface ContributionUpdate {
   payload: ContributionFormData
   type: Actions.CONTRIBUTION_UPDATE;
 }
+
+export interface ContributionDelete {
+  payload: string
+  type: Actions.CONTRIBUTION_DELETE;
+}
